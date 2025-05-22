@@ -6,8 +6,9 @@ services:
       context: .
       dockerfile: docker/php/Dockerfile
     volumes:
-      - ./src:/var/www
+      - ./src:/var/www/src
       - ./storage:/var/www/storage
+      - ./public:/var/www/public
     environment:
       - DB_DRIVER=${DB_DRIVER:-pgsql}
       - DB_HOST=${DB_HOST:-postgres}
@@ -26,7 +27,7 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./src:/var/www
+      - ./public:/var/www/public
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - php
